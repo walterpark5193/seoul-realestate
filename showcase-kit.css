@@ -1,0 +1,234 @@
+/* showcase-kit.css
+   showcase 공통 디자인 시스템. 모든 showcase 페이지가 이 파일 하나를 참조한다.
+   여기를 고치면 전부 바뀐다. 페이지는 내용(HTML)만 가진다.
+   부품 목록과 쓰는 법: kit/SHOWCASE-KIT.md */
+
+:root{
+  --canvas:#eef2f6;
+  --panel:#ffffff;
+  --rail:#15283d;
+  --rail-text:#d9e2ec;
+  --rail-muted:#8fa3b8;
+  --ink:#182230;
+  --text:#2a3644;
+  --muted:#5b6b7b;
+  --line:#d9e0e8;
+  --line-soft:#e9eef3;
+  --accent:#2f6fed;
+  --accent-soft:#e6edfb;
+  --ok:#1f8a5b;
+  --warn:#b7791f;
+  --fail:#c43d2f;
+  --info:#4a5a6a;
+  --ok-bg:#e4f4ec;
+  --warn-bg:#f8eed9;
+  --fail-bg:#f9e3df;
+  --info-bg:#e9eef3;
+  --ok-ink:#15603f;
+  --warn-ink:#7a4d0b;
+  --fail-ink:#9b2d22;
+  --info-ink:#3a4a5a;
+  --code-bg:#f1f4f7;
+  --console:#0f1a26;
+  --edge:#7d8a99;
+  --glow:#b3cbf9;
+  --gate-bg:#fbf7ee;
+  --glow-gate:#e4c272;
+  --sans:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Helvetica Neue",Arial,sans-serif;
+  --mono:Menlo,Consolas,"Liberation Mono",monospace;
+}
+
+/* 바탕 */
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--canvas);-webkit-text-size-adjust:100%}
+body.sc{margin:0;color:var(--text);font:15px/1.7 var(--sans);word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty}
+body.sc a{color:inherit}
+body.sc code{font:13px var(--mono);background:var(--code-bg);padding:1px 5px;border-radius:4px;white-space:normal;overflow-wrap:anywhere}
+body.sc :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+body.sc [hidden]{display:none}
+
+/* 레이아웃: 왼쪽 레일 + 오른쪽 패널 */
+.sc-layout{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh}
+.sc-main{width:100%;min-width:0;padding:32px 40px}
+
+/* 레일: 목차 겸 상태판 */
+.sc-rail{position:sticky;top:0;height:100vh;overflow:auto;background:var(--rail);color:var(--rail-text);padding:28px 20px 24px;display:flex;flex-direction:column;gap:24px}
+.sc-rail-brand .sc-code{display:block;font-size:13px;letter-spacing:.02em;color:var(--rail-muted)}
+.sc-rail-brand .sc-title{display:block;margin:4px 0 0;font-size:18px;line-height:1.35;font-weight:700;color:#fff}
+.sc-rail-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.sc-rail-list a{display:grid;grid-template-columns:20px 1fr;gap:1px 10px;align-items:center;padding:8px 10px 8px 9px;border-left:3px solid transparent;border-radius:0 8px 8px 0;text-decoration:none;color:var(--rail-text);transition:background-color .2s,border-color .2s}
+.sc-rail-list .sc-mark{grid-row:1/3;align-self:center}
+.sc-rail-list .sc-rail-label{font-size:14px;font-weight:600;line-height:1.4}
+.sc-rail-list .sc-rail-sub{font-size:13px;color:var(--rail-muted);line-height:1.4}
+.sc-rail-list a:hover{background:rgba(255,255,255,.06)}
+.sc-rail-list li.is-current a{background:rgba(255,255,255,.08);border-left-color:var(--accent);color:#fff}
+.sc-rail .sc-mark.ok{color:#6fd3a0}
+.sc-rail .sc-mark.warn{color:#f0c060}
+.sc-rail .sc-mark.fail{color:#ff9b8c}
+.sc-rail .sc-mark.none{color:var(--rail-muted)}
+.sc-rail .sc-mark.info{color:#9fb8d6}
+.sc-rail-meta{margin-top:auto;font-size:13px;color:var(--rail-muted);line-height:1.6}
+.sc-rail-meta span{display:block}
+.sc-legend{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:13px;color:var(--rail-muted)}
+.sc-legend li{display:flex;align-items:center;gap:6px}
+
+/* 패널 */
+.sc-panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px;margin:0 0 24px;scroll-margin-top:16px}
+.sc-panel-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.sc-panel-head h2{margin:0;font-size:18px;line-height:1.35;font-weight:700;color:var(--ink)}
+.sc-chips{display:flex;gap:6px;flex-wrap:wrap}
+.sc-panel-body>:first-child{margin-top:0}
+.sc-panel h3{margin:24px 0 10px;font-size:15.5px;line-height:1.4;font-weight:700;color:var(--ink)}
+.sc-panel p{margin:10px 0}
+.sc-muted{color:var(--muted);font-size:13.5px}
+.sc-grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.sc-grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+
+/* 표식: 체크리스트 기호. 심볼은 페이지의 <svg hidden> 스프라이트에 있다 */
+.sc-mark{width:20px;height:20px;flex:none;display:inline-block;vertical-align:middle;color:var(--info)}
+.sc-mark.ok{color:var(--ok)}
+.sc-mark.warn{color:var(--warn)}
+.sc-mark.fail{color:var(--fail)}
+.sc-mark.none{color:var(--muted)}
+.sc-mark.info{color:var(--info)}
+
+/* 칩 */
+.sc-chip{display:inline-block;padding:1px 9px;border-radius:999px;font-size:13px;font-weight:600;line-height:1.6;background:var(--info-bg);color:var(--info-ink);white-space:nowrap}
+.sc-chip.ok{background:var(--ok-bg);color:var(--ok-ink)}
+.sc-chip.warn{background:var(--warn-bg);color:var(--warn-ink)}
+.sc-chip.fail{background:var(--fail-bg);color:var(--fail-ink)}
+
+/* 업무 한 문장, 사실 표 */
+.sc-statement{margin:0 0 18px;font-size:22px;line-height:1.5;font-weight:600;color:var(--ink)}
+.sc-facts{margin:0}
+.sc-facts>div{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:14px;padding:8px 0;border-top:1px solid var(--line-soft);font-size:14.5px}
+.sc-facts>div:first-child{border-top:0}
+.sc-facts dt{color:var(--muted);font-weight:600;white-space:nowrap}
+.sc-facts dd{margin:0}
+
+/* agent 카드 */
+.sc-agent{border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.sc-agent h3{margin:0 0 6px;font-size:15.5px}
+.sc-agent p{margin:6px 0;font-size:14.5px}
+.sc-tools{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.sc-agent-meta{color:var(--muted);font-size:13.5px}
+
+/* 가드 카드. off 는 점선 */
+.sc-guard{border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:14px}
+.sc-guard.off{border-style:dashed;color:var(--muted)}
+.sc-guard header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.sc-guard h3{margin:0;font-size:14.5px;flex:1}
+.sc-guard .sc-when{margin:0 0 6px;color:var(--muted);font-size:13px}
+.sc-guard p{margin:4px 0;line-height:1.6}
+
+/* 체크리스트 */
+.sc-checklist{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.sc-checklist li{display:grid;grid-template-columns:20px auto 1fr;gap:10px;align-items:start;padding:8px 10px;border:1px solid var(--line-soft);border-radius:8px;font-size:14px}
+.sc-checklist li em{font-style:normal;color:var(--muted);font-size:13px}
+
+/* 통계 띠 */
+.sc-stats{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+.sc-stats li{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.sc-stats strong{display:block;font-size:22px;line-height:1.2;color:var(--ink);font-variant-numeric:tabular-nums}
+.sc-stats span{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+
+/* 표 */
+.sc-scroll{overflow-x:auto;margin:12px 0 0}
+.sc-table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.55}
+.sc-table caption{text-align:left;caption-side:top;font-weight:700;color:var(--ink);padding:0 0 8px;font-size:14.5px}
+.sc-table th,.sc-table td{padding:8px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line-soft)}
+.sc-table th{color:var(--muted);font-weight:600;font-size:13px;border-bottom:1px solid var(--line);white-space:nowrap}
+.sc-table tbody tr:last-child td{border-bottom:0}
+.sc-table .n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sc-table .nw{white-space:nowrap}
+.sc-table td.k{font-weight:600;color:var(--ink);white-space:nowrap}
+
+/* 기준선 막대: 로그 눈금 0.25배~4배. 0.5배 25%, 1배 50%, 2배 75%. 점 위치는 --pos(0~100) */
+.sc-ratio{display:inline-block;width:120px;height:14px;position:relative;vertical-align:middle;margin-left:8px;
+  background:
+    repeating-linear-gradient(to bottom,var(--muted) 0 2px,transparent 2px 4px) 25% 0/1px 100% no-repeat,
+    repeating-linear-gradient(to bottom,var(--muted) 0 2px,transparent 2px 4px) 75% 0/1px 100% no-repeat,
+    linear-gradient(var(--line),var(--line)) 0 50%/100% 1px no-repeat}
+.sc-ratio::after{content:"";position:absolute;left:50%;top:0;width:1px;height:100%;background:var(--muted)}
+.sc-ratio i{position:absolute;left:calc(var(--pos,50)*1%);top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--muted);box-shadow:0 0 0 2px var(--panel)}
+.sc-ratio.out i{background:var(--warn)}
+
+/* 판정, 메모, 콜아웃 */
+.sc-verdict{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;background:var(--info-bg);color:var(--info-ink);margin:16px 0}
+.sc-verdict strong{font-size:16px}
+.sc-verdict.ok{background:var(--ok-bg);color:var(--ok-ink)}
+.sc-verdict.warn{background:var(--warn-bg);color:var(--warn-ink)}
+.sc-verdict.fail{background:var(--fail-bg);color:var(--fail-ink)}
+.sc-memo{margin:12px 0 0}
+.sc-memo dt{font-weight:600;color:var(--ink);margin-top:10px}
+.sc-memo dd{margin:2px 0 0}
+.sc-callout{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:var(--info-bg);color:var(--text);margin:16px 0;font-size:14px}
+.sc-callout.ok{background:var(--ok-bg)}
+.sc-callout.warn{background:var(--warn-bg)}
+.sc-callout.fail{background:var(--fail-bg)}
+.sc-callout>div>p{margin:4px 0}
+
+/* 콘솔, 막힘 카드 */
+.sc-console{margin:10px 0 0;padding:14px 16px;font:13px/1.6 var(--mono);background:var(--console);color:#dbe4ee;border-radius:8px;overflow-x:auto;white-space:pre-wrap;word-break:break-all}
+.sc-console .cmd{color:#fff}
+.sc-console .err{color:#ffb0a0}
+.sc-console .dim{color:#8ea3b8}
+.sc-blocked{border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.sc-blocked h3{margin:0 0 6px;font-size:15px}
+.sc-blocked p{margin:6px 0;font-size:14.5px}
+.sc-blocked .sc-by{color:var(--muted);font-size:13.5px}
+
+/* 흐름도. 노드·선·점의 좌표와 움직임은 페이지의 SVG 가 가진다.
+   점과 상자 점등은 SVG 내장 애니메이션(<animateMotion>, <animate>)으로 움직인다. 모든 주요 브라우저에서 GIF 처럼 돈다.
+   시간 규칙: 주기 13s, 점 하나는 0.8s(주기의 0.0615) 동안 자기 경로를 지나간다. 쓰는 법은 kit/SHOWCASE-KIT.md 5절.
+   CSS 는 모양(색, 선, 글자)만 정한다. */
+.sc-flow{margin:16px 0 0;padding:16px 16px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.sc-flow svg{display:block;width:100%;max-width:1100px;height:auto;margin-inline:auto}
+.sc-flow figcaption{margin-top:10px;color:var(--muted);font-size:13.5px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.sc-flow-toggle{flex:none;font:600 13px var(--sans);color:var(--accent);background:var(--panel);border:1px solid var(--accent);border-radius:999px;padding:3px 14px;cursor:pointer}
+.sc-flow-toggle:hover{background:var(--accent-soft)}
+.sc-flow-toggle[aria-pressed="true"]{color:#fff;background:var(--accent)}
+.sc-flow[data-flow="pause"] .sc-steps li{animation-play-state:paused}
+.sc-flow .node{fill:var(--panel);stroke:var(--text);stroke-width:1.2}
+.sc-flow .node.agent{stroke:var(--accent)}
+.sc-flow .node.gate{fill:var(--gate-bg);stroke:var(--warn);stroke-dasharray:4 3}
+.sc-flow .node.source{stroke:var(--info)}
+.sc-flow .edge{stroke:var(--edge);stroke-width:1.2;fill:none}
+.sc-flow .t{font:600 13px var(--sans);fill:var(--ink)}
+.sc-flow .s{font:11.5px var(--sans);fill:var(--muted)}
+.sc-flow .m{font:11.5px var(--mono);fill:var(--text)}
+.sc-flow .lbl{font:11.5px var(--sans);fill:var(--muted)}
+.sc-flow .dot{fill:var(--accent)}
+.sc-flow .dot.ret{fill:var(--panel);stroke:var(--accent);stroke-width:2}
+.sc-flow .glow{fill:var(--glow);stroke:none}
+.sc-flow .glow.gate{fill:var(--glow-gate)}
+.sc-steps{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 18px;font-size:13.5px;color:var(--muted)}
+.sc-steps li{padding:4px 0;border-top:2px solid var(--line-soft);animation:sc-step var(--cycle,13s) linear var(--delay,0s) infinite}
+@keyframes sc-step{0%{color:var(--muted);border-color:var(--line-soft)}.1%,12.2%{color:var(--ink);border-color:var(--accent)}12.3%,100%{color:var(--muted);border-color:var(--line-soft)}}
+
+/* 좁은 화면: 레일이 상단 탭으로 */
+@media (max-width:959px){
+  .sc-layout{grid-template-columns:1fr}
+  .sc-rail{position:sticky;top:0;height:auto;flex-direction:row;align-items:center;gap:12px;padding:10px 12px;overflow-x:auto;z-index:10}
+  .sc-rail-brand{flex:none;padding-right:10px;border-right:1px solid rgba(255,255,255,.15)}
+  .sc-rail-brand .sc-code{display:none}
+  .sc-rail-brand .sc-title{font-size:14px;margin-top:0;white-space:nowrap}
+  .sc-rail-list{flex-direction:row;gap:4px}
+  .sc-rail-list a{grid-template-columns:18px auto;gap:0 6px;padding:6px 10px;border-left:0;border-bottom:3px solid transparent;border-radius:8px 8px 0 0;white-space:nowrap}
+  .sc-rail-list .sc-mark{grid-row:auto;width:18px;height:18px}
+  .sc-rail-list li.is-current a{border-bottom-color:var(--accent)}
+  .sc-rail-sub,.sc-rail-meta,.sc-legend{display:none}
+  .sc-main{padding:16px}
+  .sc-panel{scroll-margin-top:68px}
+  .sc-panel{padding:16px;border-radius:10px}
+  .sc-grid-2,.sc-grid-3{grid-template-columns:1fr}
+  .sc-statement{font-size:19px}
+  .sc-facts>div{grid-template-columns:5.5em minmax(0,1fr)}
+  .sc-checklist li{grid-template-columns:20px minmax(0,1fr)}
+  .sc-checklist li em{grid-column:2}
+}
+
+/* 움직임 줄이기. 흐름도는 GIF 처럼 항상 자동 재생하고 멈춤 버튼으로 세운다(사용자 결정), 여기서는 레일 전환만 끈다 */
+@media (prefers-reduced-motion:reduce){
+  .sc-rail-list a{transition:none}
+}
